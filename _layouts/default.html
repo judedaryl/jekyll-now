@@ -11,29 +11,42 @@
 </head>
 
 <body>
-    <div class="shadow-sm bg-white header">
-        <div class="h-100 container d-flex align-items-center">
-            <a href="{{ site.baseurl }}/" class="text-decoration-none text-dark">
-                <h5 class="m-0">
-                    <img src="{{ site.avatar }}" />
-                    <span class="d-none d-sm-block">Daryl Clarino</span>
-                </h5>
-            </a>
-            <span class="flex-fill"></span>
-            <a href="#" class="mr-4 text-muted text-decoration-none">Me</a>
-            <a href="#" class="mr-4 text-muted text-decoration-none">Blog</a>
-            <a href="#" class="mr-4 text-muted text-decoration-none">Contact</a>
-            <a href="https://github.com/judedaryl">
-                <img height="40" width="40"
-                    src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png">
-            </a>
+    <div class="main-content">
+        <div class="shadow-sm bg-white header">
+            <div class="h-100 container d-flex align-items-center">
+                <a href="." class="text-decoration-none text-dark">
+                    <h5 class="m-0 d-flex align-items-center">
+                        <img height="30" width="30" style="border-radius: 20px;" class="mr-2"
+                            src="https://avatars0.githubusercontent.com/u/13645031?s=460&v=4">
+                        <span class="d-none d-sm-block">Daryl Clarino</span>
+                        <span class="d-block d-sm-none">DC</span>
+                    </h5>
+                </a>
+                <span class="flex-fill"></span>
+                <a href="about" class="mr-4 text-muted text-decoration-none">Me</a>
+                <a href="contact" class="mr-4 text-muted text-decoration-none">Contact</a>
+                <a href="https://github.com/judedaryl">
+                    <img height="30" width="30" src="{{ site.baseurl }}/images/GitHub-Mark-64px.png">
+                </a>
+            </div>
+        </div>
+        <div class="content">
+            <div class="container">
+                {{ content }}
+            </div>
         </div>
     </div>
-    <div class="content">
-        <div class="container">
-            {{ content }}
+    <div class="shadow-sm bg-white footer">
+        <div class="h-100 container d-flex align-items-center justify-content-between">
+            <small class="text-muted"> Copyright @ <span id="footer-year">2019</span></small>
+            <small class="text-primary">
+                <a href="https://github.com/judedaryl">Daryl Clarino</a></small>
         </div>
     </div>
 </body>
+
+<script>
+    document.getElementById('footer-year').innerText = new Date().getFullYear();
+</script>
 
 </html>
