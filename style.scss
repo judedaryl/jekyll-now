@@ -4,9 +4,13 @@
     top: 0;
     z-index: 1;
 }
+:root {
+    --footer-height:48px;
+}
+.main-content {
+    min-height: calc(100vh - var(--footer-height));
+}
 
-
-.content {
-    margin-top: 100px;
-    height: 5000px;
+.footer {
+    height: var(--footer-height);
 }
