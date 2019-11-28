@@ -1,4 +1,8 @@
-# Angular and Flux. The Angular way
+---
+layout: post
+title: Angular and Flux. The Angular way
+date: 2019-11-28 00:00:00
+---
 
 When you think about **Flux**, most of us almost always associate it with **React** but it shouldn't be.  **Flux** is a pattern! It's a guide that helps you determine how to manage your *state* and your *views*, read more about flux [here](https://facebook.github.io/flux/docs/in-depth-overview). Since it's a pattern it can be applied to a lot of technologies not limited to javascript built apps alone! This article focuses on how we apply **Flux** to an **Angular** application, the **Angular** way.
 
