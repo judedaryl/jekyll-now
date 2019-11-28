@@ -50,7 +50,7 @@ Verify the installation
 npm -v
 ```
 
-<img style="height: 40px;" src="./images/npm-v.png">
+<img style="height: 40px;" src="/images/npm-v.png">
 
 Creating our application.
 ```sh
@@ -72,7 +72,7 @@ ng serve -o
 ```
 The parameter ``-o`` automatically opens up a browser windows for us once angular is up and running. Once it is, we should be able to see this!
 <div style="display: flex; align-items: center; justify-content:center">
-    <img style="width: 800px; object-fit: contain" src="./images/angular-app.png">
+    <img style="width: 100%; object-fit: contain" src="/images/angular-app.png">
 </div>
 
 
@@ -160,7 +160,7 @@ Import ``bootstrap`` into our application.
 Save the changes and let's check how our application looks!
 
 <div style="display: flex; align-items: center; justify-content:center">
-    <img style="width: 800px; object-fit: contain" src="./images/todo-shell.png">
+    <img style="width: 100%; object-fit: contain" src="/images/todo-shell.png">
 </div>
 
 It's a blank page that only displays *todo-shell works!*. It might not look like much, but behind the scenes we've accomplished quite a lot!
@@ -252,7 +252,7 @@ Let's prefill three items so our application doesn't look so lonely.
 Let's take a look at our application now that we've added some user interface. Nice! It's looking like a real application now.
 
 <div style="display: flex; align-items: center; justify-content:center">
-    <img style="width: 800px; object-fit: contain" src="./images/todo-shell-task.png">
+    <img style="width: 100%; object-fit: contain" src="/images/todo-shell-task.png">
 </div>
 
 
@@ -467,7 +467,7 @@ We will be listening to the ``todosDone`` event to update our ``doneCount`` vari
 And that's it. We now have a fully working **TODO List** Angular application!
 
 <div style="display: flex; align-items: center; justify-content:center">
-    <img style="width: 800px; object-fit: contain" src="./images/finished.gif">
+    <img style="width: 100%; object-fit: contain" src="/images/finished.gif">
 </div>
 
 
