@@ -1,11 +1,28 @@
 ---
 layout: default
 ---
-
+<div class="mt-5">
+    <div class="jumbotron">
+        <h1 class="display-5">Daryl here!</h1>
+        <p class="lead">
+            I build enterprise applications during the day and open-source projects at night!
+        </p>
+        <hr class="my-4">
+        <a class="" href="https://twitter.com/clarinojd" title="Twitter">
+            <img height="30" src="{{ site.baseurl }}/images/Twitter_Social_Icon_Rounded_Square_Color.png">
+        </a>
+        <a href="https://www.linkedin.com/in/clarinojd/" title="Linked in">
+            <img height="30" src="{{ site.baseurl }}/images/LI-In-Bug.png">
+        </a>
+        <a href="https://github.com/judedaryl" title="Github">
+            <img height="30" src="{{ site.baseurl }}/images/GitHub-Mark-64px.png">
+        </a>
+    </div>
+</div>
 <h3>Latest Articles</h3>
 <div class="mt-5 list-group">
     {% for post in site.posts %}
-    <a href="{{ site.baseurl }}{{ post.url }}"  class="list-group-item list-group-item-action">
+    <a href="{{ site.baseurl }}{{ post.url }}" class="list-group-item list-group-item-action">
         <div class="d-flex">
             <img height="40" width="40" src="https://angular.io/assets/images/logos/angular/angular.svg">
             <div class="ml-3">
