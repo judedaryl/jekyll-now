@@ -1,16 +1,16 @@
 ---
 layout: post
-title: Angular and Flux. The Angular way
+title: Angular and Redux. The Angular way
 date: 2019-11-28 00:00:00
 ---
 
 Redux has always been a part of the React ecosystem. Today we explore how the concept of Redux can be applied to an Angular application!
 
-When you think about **Flux**, most of us almost always associate it with **React** but it shouldn't be.  **Flux** is a pattern! It's a guide that helps you determine how to manage your *state* and your *views*, read more about flux [here](https://facebook.github.io/flux/docs/in-depth-overview). Since it's a pattern it can be applied to a lot of technologies not limited to javascript built apps alone! This article focuses on how we apply **Flux** to an **Angular** application, the **Angular** way.
+When you think about **Redux**, most of us almost always associate it with **React** but it shouldn't be.  **Redux** is a merely a library that adopts the Redux pattern, which inturn was inspired by [Facebook's Flux](https://facebook.github.io/flux/docs/in-depth-overview) pattern! It's a guide that helps you determine how to manage your *state* and your *views*. Since it's a pattern it can be applied to a lot of technologies not limited to javascript built apps alone! This article focuses on how we apply **Redux** to an **Angular** application, the **Angular** way.
 
 If you are unfamiliar with both of these technologies, here are some links that might help you.
 * [Angular](https://angular.io/)
-* [Flux](https://facebook.github.io/flux/docs/in-depth-overview)
+* [Redux](https://redux.js.org/introduction/core-concepts)
 
 Together we will be building a simple application that todo application with the following features.
 
@@ -21,12 +21,12 @@ Together we will be building a simple application that todo application with the
 5. User will be able to delete a **todo** from the list.
 6. User will be able to see how many **todos** have been finished.
 
-This is a simple application, and I know most of these features can be implemented using **Angular** alone. It's not always necessary to use the Flux pattern in every scenario. In fact [redux](https://redux.js.org) a popular library for implement the flux pattern, has an entry in their [faq page](https://redux.js.org/faq/general#when-should-i-use-redux) about when to use flux. The Flux pattern keeps state in a centralized store, and we don't want to keep large amounts of unnecessary objects in our store because it can greatly impact our application's performance. 
+This is a simple application, and I know most of these features can be implemented using **Angular** alone. It's not always necessary to use the Flux pattern in every scenario. In fact [redux](https://redux.js.org) has an entry in their [faq page](https://redux.js.org/faq/general#when-should-i-use-redux) about when to use it. The Redux pattern keeps state in a centralized store, and we don't want to keep large amounts of unnecessary objects in our store because it can greatly impact our application's performance. 
 
-> For the sake of knowledge  we will be heavily relying on the Flux pattern to manage our state and views. And if you're up for the challenge, you can optimize the application by determining what data needs to be in the centralized store and what should be removed.
+> For the sake of learning we will be heavily relying on the Flux pattern to manage our state and views. And if you're up for the challenge, you can optimize the application by determining what data needs to be in the centralized store and what should be removed.
 
 
-# Tookit
+## Tookit
 
 Here are some tools we need in our arsenal to create an Angular app implementing the Flux pattern.
 
@@ -37,7 +37,7 @@ Here are some tools we need in our arsenal to create an Angular app implementing
 * [``@ngrx/store``](https://ngrx.io/) - A library inspired by [redux](https://redux.js.org/) that helps us implement Flux in our app.
 * [``bootstrap``](https://getbootstrap.com/docs/4.3/getting-started/introduction/) - Makes our app pretty on top of providing us witha ton of accessibility.
 
-# Setting up our Angular application
+## Setting up our Angular application
 
 Installing the angular cli
 ```sh
@@ -54,10 +54,10 @@ npm -v
 
 Creating our application.
 ```sh
-ng new angular-flux --style=scss --routing
+ng new angular-redux --style=scss --routing
 ```
 
-The parameter ``--routing`` creates a ``app-router.module.ts`` file for us in the app folder and the ``--style=scss`` defaults our application to use ``scss`` instead of plain ``css``. I prefer ``scss`` since you're stylesheets are easier to write, and a nice perk of using ``scss`` is that we get to import ``bootstrap`` as an scss library and customize it!
+The parameter ``--routing`` creates a ``app-router.module.ts`` file for us in the app folder and the ``--style=scss`` defaults our application to use ``scss`` instead of plain ``css``. I prefer ``scss`` since the stylesheets are easier to write, and a nice perk of using ``scss`` is that we get to import ``bootstrap`` as an scss library and customize it!
 
 Add the tools we mentioned earlier.
 
@@ -76,7 +76,7 @@ The parameter ``-o`` automatically opens up a browser windows for us once angula
 </div>
 
 
-# Scaffolding the Todo Feature Module
+## Scaffolding the Todo Feature Module
 
 Let's build out a scaffolding of your **Todo** feature.
 1. Create a **todo** module with *routing* enabled.
@@ -103,7 +103,7 @@ ng g c todo/shells/todo-shell
 ```
 
 
-# Routing and Displaying the Feature Module
+## Routing and Displaying the Feature Module
 
 Now that we've scaffolded our feature. Let's wire up the pages and routing!
 
@@ -168,13 +168,13 @@ It's a blank page that only displays *todo-shell works!*. It might not look like
 * Lazy loaded a feature module
 * Configured the routing of our feature module
 
-# Setting up the User Interface
+## Setting up the User Interface
 
 We'll be using the components we've previously scaffolded. For now we just want show our user interface without logic.
 
 > Bootstrap has this weird caveit that you need to have a label in order for the custom checkboxes to work. Also you need a unique id for both that label and the input so that it works properly. To work around this, we can create a custom id by incrementing a number everytime our component get's used. Below we are using the variable **compId** as our number, and returning the unique id as the component property **id**. 
 
-## Todo item
+### Todo item
 
 ```ts
 > src/app/todo/components/todo-item.component.ts
@@ -210,7 +210,7 @@ export class TodoItemComponent implements OnInit {
 </div>
 ```
 
-## Todo list
+### Todo list
 
 Let's prefill three items so our application doesn't look so lonely.
 ```html
@@ -235,7 +235,7 @@ Let's prefill three items so our application doesn't look so lonely.
 </ul>
 ```
 
-## Todo shell
+### Todo shell
 
 ```html
 > src/app/todo/shells/todo-shell.component.html
@@ -257,12 +257,12 @@ Let's take a look at our application now that we've added some user interface. N
 
 
 
-# Adding Logic
+## Adding Logic
 
 We'll be setting up our application logic first without the Flux. Then later on 
 we will be modifying our application to use Flux.
 
-# Creating a Todo Class
+## Creating a Todo Class
 
 Let's represent our **todos** with a class so it's easier to construct.
 
@@ -279,11 +279,11 @@ export class Todo {
     }
 }
 ```
-# Todo Item
+## Todo Item
 
 We want our ``todo-item`` component to receive some state (**task name**, **task status**) and emit what actions we're done to the item (**toggled status**, **removed**).
 
-## Displaying the Todo
+### Displaying the Todo
 
 Let's setup our todo-item component so that it can receive a **todo** class and display the **name** of the todo and set the checkbox to checked if it is marked as **done**
 ```ts
@@ -320,7 +320,7 @@ The ``@Input()`` decorator allows us to pass in an instance of a **todo** class 
 ```
 
 
-## Toggling Done and Triggering Remove
+### Toggling Done and Triggering Remove
 
 Let's add the capability to toggle the **done** property of our todo and also to **remove** a todo item.
 
@@ -359,7 +359,7 @@ When a event gets triggered on an output, you can call a method in the parent co
 <app-todo-item (remove)="removeTodo($event)" (done)="doneTodo($event)"></app-todo-item>
 ```
 
-# Todo List
+## Todo List
 
 We will keep the state of our **todos** and handle it's events here. Let's setup some uses cases for this component.
 
@@ -370,9 +370,9 @@ We will keep the state of our **todos** and handle it's events here. Let's setup
 5. Output an event that emits the number of **todos** that are ``done``.
 
 
-There's a pretty neat trick in Angular where binding to HTMLElements no longer require an ``id`` (``document.getElementBy...``). Since Angular compiles our *html* files for us, we can add some attributes in our *html* file that let's Angular add a variable to that element object. We can then use that variable to extract various data from the element like it's value. These variables are called ``Template Reference Variables`` and can be added by using a ``#`` followed by the variable name e.g. (``#contentDiv``).
+> There's a pretty neat trick in Angular where binding to HTMLElements no longer require an ``id`` (``document.getElementBy...``). Since Angular compiles our *html* files for us, we can add some attributes in our *html* file that let's Angular add a variable to that element object. We can then use that variable to extract various data from the element like it's value. These variables are called ``Template Reference Variables`` and can be added by using a ``#`` followed by the variable name e.g. (``#contentDiv``).
 
-In the ``todo-list`` component, we will be using this trick to extract the value of the ``input`` element and pass it as a parameter to our ``addTodo`` method.
+> In the ``todo-list`` component, we will be using this trick to extract the value of the ``input`` element and pass it as a parameter to our ``addTodo`` method.
 
 ```html
 > src/app/todo/components/todo-list.components.html
@@ -433,7 +433,7 @@ export class TodoListComponent implements OnInit {
 }
 ```
 
-# Todo Shell
+## Todo Shell
 
 Now that we have our ``todo-item`` and ``todo-list`` component. Let's set our ``todo-shell`` component with the following use cases.
 
@@ -471,17 +471,15 @@ And that's it. We now have a fully working **TODO List** Angular application!
 </div>
 
 
-# Flux the Angular Way
-We've got a working **TODO List**, now let's apply the Flux pattern! There's 
-1. Store
-2. 
+## Redux the Angular Way
+We've got a working **TODO List**, now let's apply the Redux pattern!
 
 Implementing Flux the Angular Way can be described with one word. **Observables!**
 
 > The library we will be using [``@ngrx/store``](https://ngrx.io/) provides all the tools we need to implement the Flux pattern wrapped in **Observables** which is very neat since Angular at it's very core uses Observables (*[reference here](https://angular.io/guide/rx-library)*). These Observables come from a library called [``rxjs``](https://rxjs.dev/guide/overview) which have implementations for a lot of languages, not limited to javascript.
 
 
-# Setting up @ngrx
+## Setting up @ngrx
 
 Let's start by defining the state of our entire application. Create a single file called ``app.state.ts`` which should be located in ``src/app/state/app.state.ts``.
 
@@ -493,7 +491,7 @@ export interface State {}
 
 The root state interface is empty since we don't really have much state to store for the entire application, but we will define this here since we are going to be extending it later in our feature module. Defining the state interface also to enforce a strongly typed environment for our application.
 
-# Setup the Stores
+## Setup the Stores
 
 Let's initialize the ``@ngrx/store`` in our root application module. We can do this by importing the ``StoreModule`` and importing it with ``StoreModule.forRoot<State>({})``
 
@@ -544,29 +542,16 @@ export interface State extends fromRoot.State {
 }
 ```
 
-Let's break this down. We don't want to properties from the **todo** feature module level going down to the **application root** level as this defeats the whole purposes of lazy loading our routes. 
+Let's break this down. We don't want to properties from the **todo** feature module level going down to the **application root** level as this defeats the whole purpose of lazy loading our routes. 
 
 We want our entire **todo** feature module only to be loaded when needed. To solve this we are instead **extending** the application root state, and adding state that is useful to the todo feature module.
 
 
-# Setup our Actions
+## Setup our Actions
 
-We are going to define the actions we are going to dispatch to our store. Instead of creating a lot of boilerplate code to setup actions, the ``createAction`` method is a new ``quality of life`` update by ``@ng/rx`` that helps stream line the creation of actions.
+We are going to define the actions we are going to dispatch to our store. 
 
-Previously we had to create actions like this
-```ts
-export enum TodoActionTypes {
-    ...
-}
-
-export class TodoAction {
-    ...
-}
-
-export type TodoTypes = TodoActionTypes | SomeOtherAction
-```
-
-Now we just have to call the ``createAction`` method.
+We can use the ``createAction`` method provided by ``@ngrx/store``, to simplify creating an action.
 
 ```ts
 > src/app/todo/state/action.state.ts
@@ -579,18 +564,31 @@ export const doneTodo = createAction('[Todo List] Toggle Todo Status', (index: n
 export const removeTodo = createAction('[Todo List] Remove Todo', (index: number) => ({ index }));
 ```
 
-# Setup our Reducers
+> Hey wait! Don't we need to update the count of task that are done?
+
+The count of task that are done can be extracted from our feature module state. We can watch for changes in the todo array and update our count accordingly.
+
+## Setup our Reducers
 
 ```ts
-import { createReducer, on } from '@ngrx/store';
-import { TodoState, addTodo, doneTodo, removeTodo } from '.';
+> src/app/todo/state/reducer.state.ts
+
+import {  createReducer, on, Action } from '@ngrx/store';
+import { addTodo, doneTodo, removeTodo } from './action.state';
+import { Todo } from '../data/todo';
+
+
+export interface TodoState {
+    todos: Todo[],
+    doneCount: 0
+}
 
 let initialState: TodoState = {
     todos: [],
     doneCount: 0
 }
 
-export const reducer = createReducer(initialState, 
+const todoReducer = createReducer(initialState, 
     
     // Add a todo
     on(addTodo, (state: TodoState , { todo }) => ({
@@ -610,8 +608,200 @@ export const reducer = createReducer(initialState,
         todos: state.todos.filter((_, ix) => ix !== index)
     }))
 )
+
+export function reducer(state: TodoState | undefined, action: Action) {
+    return todoReducer(state, action);
+}
 ```
-# What's next?
+> We are wrapping our ``todoReducer`` constant in a ``reducer`` function as this fails build in the **production** configuration. More information [here](https://ngrx.io/guide/store/reducers#creating-the-reducer-function).
+
+
+## Setup our Selectors
+
+A selector is similar to a ``stored procedure``. Except, it can only fetch data and not change data. Selectors make it easier for us to get the data we want from the store.
+
+Let's create our selectors in todo feature module state folder as an entry file ``(index.ts)`` and export our ``actions`` and ``reducer`` files at the same time. This way importing all our actions, reducers and selectors will come from the ``state`` folder.
+
+e.g.
+```ts
+// fromTodo.* contains all the methods and constants 
+// that our feature module store needs.
+import * as fromTodo from './state'
+```
+
+```ts
+> src/app/todo/state/index.ts
+
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import * as fromRoot from '../../state/app.state';
+import { TodoState } from './reducer.state';
+
+export const featureName = "todo";
+export interface State extends fromRoot.State {
+    todo: TodoState
+}
+export * from './action.state';
+export * from './reducer.state';
+
+
+const featureSelector = createFeatureSelector<TodoState>(featureName);
+
+export const getTodos = createSelector(
+    featureSelector,
+    state => state.todos
+)
+
+export const getDoneCount = createSelector(
+    featureSelector,
+    state => state.todos.filter(q => q.done).length
+)
+```
+
+## Modify our Components
+
+We can keep ``todo-item`` component as is and start with our ``todo-list`` component instead. This is because we want to classify our ``todo-item`` component as a *dumb* component whose job is merely to display our todo and emit clicks from the buttons. The ``todo-list`` on the other hand does all changes to our application's state.
+
+Our first job is to relieve the ``todo-list`` component of it's role of changing the state, and delegate all the state changes to the reducer we made earlier. The ``reducer`` then classifies what action should be taken based on what ``action`` was dispatched by the ``store``. We want our ``todo-list`` component to merely display our state.
+
+First let's modify our variables! It's common practice in the usage of **Observables** to name them with a "$" prefix.
+
+```ts
+> src/app/todo/components/todo-list.component.ts
+
+...
+
+import { Observable } from 'rxjs';
+
+...
+
+export class TodoListComponent implements OnInit {
+  // todos: Todo[] = [];
+  $todos: Observable<Todo[]>;
+```
+
+Now let's use the store to get all the todo's from our application's state.
+
+```ts
+> src/app/todo/components/todo-list.component.ts
+
+...
+import { Todo } from '../../data/todo';
+import { Store } from '@ngrx/store';
+import * as fromTodo from '../../state';
+import { Observable } from 'rxjs';
+
+...
+
+export class TodoListComponent implements OnInit {
+  // todos: Todo[] = [];
+  $todos: Observable<Todo[]>;
+
+  // We no longer need this event, we can handle this with the store.
+  // @Output() todosDone = new EventEmitter<number>();
+
+  constructor(private store: Store<fromTodo.TodoState>) { }
+
+  ngOnInit() {
+    this.$todos = this.store.select(fromTodo.getTodos);
+  }
+```
+
+Here we are using the **selector** we created earlier to fetch all the **todos** from the state.
+
+```ts
+> src/app/todo/state/index.ts
+...
+
+const featureSelector = createFeatureSelector<TodoState>(featureName);
+export const getTodos = createSelector(
+    featureSelector,
+    state => state.todos
+)
+```
+
+Since we modified the ``todos`` variable to become an Observable ``$todos``. We can simply add the ``async`` pipe in Angular to our html template.
+
+```html
+
+...
+<ul ...>
+    <li ... *ngFor="let todo of $todos | async; let i = index;">
+        ...
+    </li>
+</ul>
+```
+
+
+Now let's modify our methods to use the ``actions`` we created earlier.
+
+```ts
+addTodo(name: string) {
+    this.store.dispatch(fromTodo.addTodo(new Todo(name)));
+}
+
+removeTodo(index: number) {
+    this.store.dispatch(fromTodo.removeTodo(index));
+}
+
+doneTodo(index: number, done: boolean) {
+    this.store.dispatch(fromTodo.doneTodo(index, done));
+}
+
+// Remove the update todo method.
+// updateTodo() {
+
+// }
+```
+
+Nice! We're almost done. We just need to update our ``todo-shell`` component to listen to changes in the ``store`` instead of the ``todosDone`` event we used earlier.
+
+Let's transform the ``doneCount`` variable to an Observable. And then listen to changes in the store to update the ``$doneCount`` variable using the **selector** we created earlier.
+
+```ts
+> src/app/todo/state/index.ts
+
+...
+
+export const getDoneCount = createSelector(
+    featureSelector,
+    state => state.todos.filter(q => q.done).length
+)
+
+...
+```
+
+```ts
+> src/app/todo/shells/todo-shell.component.ts
+...
+
+import { Store } from '@ngrx/store';
+import * as fromTodo from '../../state';
+import { Observable } from 'rxjs';
+...
+
+export class TodoShellComponent implements OnInit {
+  //doneCount: number = 0;
+  $doneCount: Observable<number>;
+  
+
+  constructor(private store: Store<fromTodo.State>) { }
+
+  ngOnInit() {
+    this.$doneCount = this.store.select(fromTodo.getDoneCount);
+  }
+```
+
+Alright we're all set! Let's run the app again and we should have the same behavior as earlier!
+
+## Sauce?
+
+No worries, the source code for this article is publicly available at https://github.com/judedaryl/angular-redux
+
+There are two folders in the **source** folder. Which has the application **before** and **after** we applied Redux.
+* [pre-redux ( No Redux )](https://github.com/judedaryl/angular-redux/tree/master/pre-redux)
+* [post-redux ( With Redux )](https://github.com/judedaryl/angular-redux/tree/master/post-redux)
+
+## What's next?
 
 We've barely scratched the surface and there are a lot more of exciting things to learn! Below are some challenges you could do to enhance your knowledge.
 
