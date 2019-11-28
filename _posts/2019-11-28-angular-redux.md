@@ -6,7 +6,7 @@ date: 2019-11-28 00:00:00
 
 Redux has always been a part of the React ecosystem. Today we explore how the concept of Redux can be applied to an Angular application!
 
-When you think about **Redux**, most of us almost always associate it with **React** but it shouldn't be.  **Redux** is a merely a library that adopts the Redux pattern, which inturn was inspired by [Facebook's Flux](https://facebook.github.io/flux/docs/in-depth-overview) pattern! It's a guide that helps you determine how to manage your *state* and your *views*. Since it's a pattern it can be applied to a lot of technologies not limited to javascript built apps alone! This article focuses on how we apply **Redux** to an **Angular** application, the **Angular** way.
+Most of us almost always associate **Redux** with **React** but it shouldn't be.  **Redux** is a merely a library that adopts the Redux pattern, which inturn was inspired by [Facebook's Flux](https://facebook.github.io/flux/docs/in-depth-overview) pattern! It's a guide that helps you determine how to manage your *state* and your *views*. Since it's a pattern it can be applied to a lot of technologies not limited to javascript built apps alone! This article focuses on how we apply **Redux** to an **Angular** application, the **Angular** way.
 
 If you are unfamiliar with both of these technologies, here are some links that might help you.
 * [Angular](https://angular.io/)
