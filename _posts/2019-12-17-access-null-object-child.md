@@ -4,11 +4,6 @@ title: A safe way to access a null object's children
 date: 2019-11-28 00:00:00
 ---
 
-*Not so funny thought of the day:*
-> Have you ever thought about how most Software questions you ask a search engine may trigger some kind of switch in the FBI? 'How to fork multiple child', 'Kill parent', 'Destroy object'. 
-
-#
-
 Have you ever encountered this error?
 
 ```
@@ -76,3 +71,6 @@ var salesOrder = new SalesOrder {
 
 Console.WriteLine(salesOrder?.author?.name) // null, but does not throw an error
 ```
+
+*Not so funny thought of the day:*
+> Have you ever thought about how most Software questions you ask a search engine may trigger some kind of switch in the FBI? 'How to fork multiple child', 'Kill parent', 'Destroy object'. 
